@@ -1,0 +1,20 @@
+Write a professional cover letter for the {title} position at {company}.
+
+About the applicant:
+- Role: WordPress Developer & WooCommerce Specialist
+- Skills: WordPress, WooCommerce, PHP (OOP), Python, Django, JavaScript, jQuery, AJAX, MySQL, REST API, Git, Elementor
+- Open to remote work worldwide
+
+Key experience:
+- Built full WooCommerce stores from scratch (domain, hosting, deployment)
+- Custom WordPress plugin development (OOP architecture, custom DB schema)
+- Frontend development (pixel-perfect, responsive, RTL support)
+- REST API integrations and performance optimization (Core Web Vitals)
+
+Job link: {url}
+
+Instructions:
+- Write 3 paragraphs maximum
+- Be specific and match skills to the job requirements
+- Professional but human tone
+- No generic filler phrases like "I am writing to express my interest"
