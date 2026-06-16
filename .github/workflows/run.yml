@@ -1,0 +1,48 @@
+name: WordPress Job Bot 🤖
+
+on:
+  schedule:
+    # هر روز ساعت ۷ صبح به وقت ایران (۳:۳۰ UTC)
+    - cron: "30 3 * * *"
+  workflow_dispatch:  # اجرای دستی
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run WordPress Job Bot
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+          ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
+          ADZUNA_API_KEY: ${{ secrets.ADZUNA_API_KEY }}
+          GSHEET_CREDENTIALS: ${{ secrets.GSHEET_CREDENTIALS }}
+          GSHEET_ID: ${{ secrets.GSHEET_ID }}
+          CF_WORKER_URL: ${{ secrets.CF_WORKER_URL }}
+          USER_SKILLS: ${{ secrets.USER_SKILLS }}
+          CL_PROMPT: ${{ secrets.CL_PROMPT }}
+        run: python bot.py
+
+      - name: Save seen jobs cache
+        if: always()
+        uses: actions/cache@v4
+        with:
+          path: seen_jobs.txt
+          key: seen-jobs-${{ github.run_id }}
+          restore-keys: |
+            seen-jobs-
